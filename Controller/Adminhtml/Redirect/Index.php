@@ -54,14 +54,20 @@ class Index extends \Magento\Backend\App\Action
             return;
         }
 
-        $freshsalesId = $customer->getCustomAttribute('freshsales_id')->getValue();
+        $freshsales = $customer->getCustomAttribute('freshsales_id');
+        if ($freshsales === null) {
+            $this->messageManager->addErrorMessage(__('Empty freshsales id'));
+            $this->_redirect($this->getUrl('customer/index/edit',['id' => $customerId]));
+            return;
+        }
+        $freshsalesId = $freshsales->getValue();
         $domian = $this->config->getApiDomain();
         if ($domian) {
             $this->_redirect(str_replace('/api', '', $domian) . '/contacts/' . $freshsalesId);
             return;
         }
         $this->messageManager->addErrorMessage(__('Module not configured.'));
-        $this->_redirect($this->getUrl('customer/index/'));
+        $this->_redirect($this->getUrl('customer/index/edit',['id' => $customerId]));
         return;
     }
 }
