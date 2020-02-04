@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Wss\FreshSales\Api\QueueRepositoryInterface" type="Wss\FreshSales\Model\QueueRepository"/>
+    <preference for="Wss\FreshSales\Api\Data\QueueInterface" type="Wss\FreshSales\Model\Queue"/>
+    <preference for="Wss\FreshSales\Api\Data\QueueSearchResultInterface" type="Wss\FreshSales\Model\ResourceModel\Queue\Collection"/>
+    <virtualType name="Wss\FreshSales\Model\Debug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/freshsales.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Wss\FreshSales\Model\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Wss\FreshSales\Model\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Wss\FreshSales\Observer\InsertCustomer">
+        <arguments>
+            <argument name="logger" xsi:type="object">Wss\FreshSales\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Wss\FreshSales\Model\Api\Client">
+        <arguments>
+            <argument name="logger" xsi:type="object">Wss\FreshSales\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Wss\FreshSales\Model\Api\Contacts">
+        <arguments>
+            <argument name="logger" xsi:type="object">Wss\FreshSales\Model\Logger</argument>
+        </arguments>
+    </type>
+</config>

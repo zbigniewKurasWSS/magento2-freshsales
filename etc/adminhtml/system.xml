@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="freshsales" translate="label" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>FreshSales</label>
+            <tab>customer</tab>
+            <resource>Wss_FreshSales::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"  showInStore="1">
+                <label>General Settings</label>
+                <field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10"  translate="label" type="select">
+                    <label>Active</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_domain" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Domain</label>
+                    <depends>
+                        <field id="freshsales/general/active">1</field>
+                    </depends>
+                </field>
+                <field id="api_auth_key" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" translate="label" type="password">
+                    <label>Auth key</label>
+                    <depends>
+                        <field id="freshsales/general/active">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
